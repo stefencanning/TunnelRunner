@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Car>
+	<Wheels>
+		<Wheel1>FL</Wheel1>
+		<Wheel2>FR</Wheel2>
+		<Wheel3>RL</Wheel3>
+		<Wheel4>RR</Wheel4>
+	</Wheels>
+	<Engine>Engine 1.0</Engine></Car>
