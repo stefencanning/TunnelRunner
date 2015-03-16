@@ -26,20 +26,38 @@ ObjectManager::ObjectManager(void):none(0),mud(1),magma(2),size(16),lava(3),flow
 	map = vector<vector<short>>();
 	for(int k = 0; k < 1440/size;k++)
 	{
-		vector<short> line = vector<short>();
-		for(int i = 0; i < 1280/size;i++)
+		spawnTerrain();
+	}
+	timeTillMove=0;
+	timeTillMoveCounter=2;
+}
+
+
+void ObjectManager::spawnTerrain()
+{
+	if(playerPos.y+400>(map.size()+lineDel)*size)
+	{
+		vector<short> line=vector<short>();
+		for(int i = 0; i < 1280/size; i++)
 		{
-			if((k==0&&(i==0||i==(1280/size)-1)))
+			if((i<=1||i>=(1280/size)-2))
 			{
-				line.push_back(magma);
+				if(map.size()<5)
+				{
+					line.push_back(none);
+				}
+				else
+				{
+					line.push_back(magma);
+				}
 			}
-			else if(k<5)
+			else if(map.size()<10)
 			{
-				if(i<k)
+				if(i<map.size())
 				{
 					line.push_back(mud);
 				}
-				else if(abs(i-(1280/size))<=k)
+				else if(abs(i-(1280/size))<=map.size())
 				{
 					line.push_back(mud);
 				}
@@ -76,8 +94,6 @@ ObjectManager::ObjectManager(void):none(0),mud(1),magma(2),size(16),lava(3),flow
 		spawnChance = max(spawnChance-2.0f,300.0f);
 		map.push_back(line);
 	}
-	timeTillMove=0;
-	timeTillMoveCounter=2;
 }
 
 ObjectManager::~ObjectManager(void)
@@ -297,36 +313,7 @@ void ObjectManager::update(float timeElapsed)
 	{
 		health=100;
 	}
-	if(playerPos.y+400>(map.size()+lineDel)*size)
-	{
-		vector<short> line=vector<short>();
-		for(int i = 0; i < 1280/size; i++)
-		{
-			int num = rand()%(int)spawnChance;
-			if(num<=spawnChance-25)
-			{
-				line.push_back(mud);
-			}
-			else if(num <=spawnChance-9)
-			{
-				line.push_back(gold);
-			}
-			else if(num <=spawnChance-5)
-			{
-				line.push_back(bedrock);
-			}
-			else if(num <=spawnChance-3)
-			{
-				line.push_back(lava);
-			}
-			else if(num <=spawnChance-1)
-			{
-				line.push_back(water);
-			}
-		}
-		spawnChance = max(spawnChance-2.0f,300.0f);
-		map.push_back(line);
-	}
+	spawnTerrain();
 	if(map.size()>2000/size)
 	{
 		map.erase(map.begin()+1);
@@ -393,7 +380,7 @@ void ObjectManager::LavaUpdate(float timeElapsed)
 		timeTillMoveCounter=max(timeTillMoveCounter-0.25,0.1);
 		for(int i = 0; i < map.size(); i++)
 		{
-			for(int k = 0; k < map.at(k).size();k++)
+			for(int k = 0; k < map.at(i).size();k++)
 			{
 				if(map.at(i).at(k)==lava)
 				{
@@ -610,55 +597,7 @@ void ObjectManager::setUp()
 	map = vector<vector<short>>();
 	for(int k = 0; k < 1440/size;k++)
 	{
-		vector<short> line = vector<short>();
-		for(int i = 0; i < 1280/size;i++)
-		{
-			if((k==0&&(i==0||i==(1280/size)-1)))
-			{
-				line.push_back(magma);
-			}
-			else if(k<5)
-			{
-				if(i<k)
-				{
-					line.push_back(mud);
-				}
-				else if(abs(i-(1280/size))<=k)
-				{
-					line.push_back(mud);
-				}
-				else
-				{
-					line.push_back(none);
-				}
-			}
-			else
-			{
-				int num = rand()%(int)spawnChance;
-				if(num<=spawnChance-25)
-				{
-					line.push_back(mud);
-				}
-				else if(num <=spawnChance-9)
-				{
-					line.push_back(gold);
-				}
-				else if(num <=spawnChance-5)
-				{
-					line.push_back(bedrock);
-				}
-				else if(num <=spawnChance-3)
-				{
-					line.push_back(lava);
-				}
-				else if(num <=spawnChance-1)
-				{
-					line.push_back(water);
-				}
-			}
-		}
-		spawnChance = max(spawnChance-2.0f,300.0f);
-		map.push_back(line);
+		spawnTerrain();
 	}
 	timeTillMove=0;
 	timeTillMoveCounter=2;

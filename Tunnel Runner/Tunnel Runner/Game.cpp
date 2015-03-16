@@ -107,7 +107,7 @@ void Game::draw(SDL_Renderer* renderer)
 		SDL_RenderCopyEx(renderer,TextureManager::getManager()->scoreScreen->getTexture(),nullptr,&pos,0,nullptr,SDL_RendererFlip::SDL_FLIP_NONE);
 
 
-		TextureManager::getManager()->drawText(renderer,"score",640-(960/2)+(450/2), 360-(540/2)+80-(48),TextureManager::positioning::center);
+		TextureManager::getManager()->drawText(renderer,"Score",640-(960/2)+(450/2), 360-(540/2)+60-(48),TextureManager::positioning::center);
 		/*
 		SDL_Color fontColor;
 		fontColor.r = 253;
@@ -134,7 +134,7 @@ void Game::draw(SDL_Renderer* renderer)
 		SDL_DestroyTexture(text);
 		//*/
 		
-		TextureManager::getManager()->drawText(renderer,"distance",640+(960/2)-(450/2), 360-(540/2)+80-(48),TextureManager::positioning::center);
+		TextureManager::getManager()->drawText(renderer,"Distance",640+(960/2)-(450/2), 360-(540/2)+60-(48),TextureManager::positioning::center);
 
 		/*
 		std::string distStr ="distance";
@@ -177,7 +177,7 @@ void Game::draw(SDL_Renderer* renderer)
 			*/
 			if(scores[i].first!="")
 			{
-				TextureManager::getManager()->drawText(renderer,scores[i].first,640-(960/2)+(450/2)-(450/4), 360-(540/2)+80+(i*48),TextureManager::positioning::center);
+				TextureManager::getManager()->drawText(renderer,scores[i].first,640-(960/2)+(450/2)-(450/4), 360-(540/2)+60+(i*48),TextureManager::positioning::center);
 				/*
 				scoreStr=scores[i].first;
 				SDL_Surface* message = TTF_RenderText_Solid(TextureManager::getManager()->font,scoreStr.c_str(), fontColor);
@@ -202,7 +202,7 @@ void Game::draw(SDL_Renderer* renderer)
 
 
 			
-			TextureManager::getManager()->drawText(renderer,std::to_string((int)scores[i].second), 640-(960/2)+(450/2)+(450/4),360-(540/2)+80+(i*48),TextureManager::positioning::center);
+			TextureManager::getManager()->drawText(renderer,std::to_string((int)scores[i].second), 640-(960/2)+(450/2)+(450/4),360-(540/2)+60+(i*48),TextureManager::positioning::center);
 			/*
 			scoreStr =std::to_string((int)scores[i].second);
 			message = TTF_RenderText_Solid(TextureManager::getManager()->font,scoreStr.c_str(), fontColor);
@@ -239,7 +239,7 @@ void Game::draw(SDL_Renderer* renderer)
 			//*/
 			if(distances[i].first!="")
 			{
-				TextureManager::getManager()->drawText(renderer,distances[i].first, 640+(960/2)-(450/2)-(450/4),360-(540/2)+80+(i*48),TextureManager::positioning::center);
+				TextureManager::getManager()->drawText(renderer,distances[i].first, 640+(960/2)-(450/2)-(450/4),360-(540/2)+60+(i*48),TextureManager::positioning::center);
 				/*
 				scoreStr =distances[i].first;
 				message = TTF_RenderText_Solid(TextureManager::getManager()->font,scoreStr.c_str(), fontColor);
@@ -262,7 +262,7 @@ void Game::draw(SDL_Renderer* renderer)
 
 
 			
-			TextureManager::getManager()->drawText(renderer,std::to_string((int)distances[i].second), 640+(960/2)-(450/2)+(450/4),360-(540/2)+80+(i*48),TextureManager::positioning::center);
+			TextureManager::getManager()->drawText(renderer,std::to_string((int)distances[i].second), 640+(960/2)-(450/2)+(450/4),360-(540/2)+60+(i*48),TextureManager::positioning::center);
 			/*
 			distStr =std::to_string((int)distances[i].second);
 			message = TTF_RenderText_Solid(TextureManager::getManager()->font,distStr.c_str(), fontColor);

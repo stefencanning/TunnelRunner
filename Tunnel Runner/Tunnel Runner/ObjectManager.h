@@ -42,6 +42,7 @@ public:
 	int playerTex;
 	int texNum;
 	bool flip;
+	void spawnTerrain();
 	enum dirs
 	{
 		down=0,
