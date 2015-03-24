@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Shlobj.h"
 
 
 Game::Game(void)
@@ -6,10 +7,11 @@ Game::Game(void)
 	textureNum = 0;
 	textureTime=0;
 	setScore=false;
-	
 	SoundManager::getManager()->startMusic(SoundManager::getManager()->backgroundMusic);
-	ifstream file("images/scores.txt");
-	ifstream file2("images/distances.txt");
+	PWSTR appdata;
+	HRESULT result = SHGetKnownFolderPath(FOLDERID_LocalAppData,0,NULL,&appdata);
+	ifstream file(*appdata+"/scores.txt");
+	ifstream file2(*appdata+"/distances.txt");
 	string line;
 	//Crew::nameOptions[150];
 	if(file.is_open())
@@ -24,14 +26,19 @@ Game::Game(void)
 			distances[i].second = atoi(line.substr(line.find(',')+1).c_str());
 		}
 	}
+	file.close();
+	file2.close();
+	CoTaskMemFree(appdata);
 }
 
 
 Game::~Game(void)
 {
 	delete curText;
-	ofstream file("images/scores.txt");
-	ofstream file2("images/distances.txt");
+	PWSTR appdata;
+	HRESULT result = SHGetKnownFolderPath(FOLDERID_LocalAppData,0,NULL,&appdata);
+	ofstream file(*appdata+"/scores.txt");
+	ofstream file2(*appdata+"/distances.txt");
 	if(file.is_open())
 	{
 		for(int i=0; i <10; i++)
@@ -40,6 +47,9 @@ Game::~Game(void)
 			file2<<distances[i].first<<','<<distances[i].second<<'\n';
 		}
 	}
+	file.close();
+	file2.close();
+	CoTaskMemFree(appdata);
 }
 
 void Game::update(float timeElapsed)
