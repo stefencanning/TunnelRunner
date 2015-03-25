@@ -53,7 +53,7 @@
 		<codepage>1252</codepage>
 		<title>Installation Database</title>
 		<subject>Tunnel Runner</subject>
-		<author>InstallShield</author>
+		<author>##ID_STRING4##</author>
 		<keywords>Installer,MSI,Database</keywords>
 		<comments>Contact:  Your local administrator</comments>
 		<template>Intel;1033</template>
@@ -341,7 +341,8 @@
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{89C47AD7-50BF-42C5-BD95-16332687E953}</td><td>IMAGES</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{D9366FFE-BEF3-4582-8E62-0910C5A59F95}</td><td>AppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{A7AB7CE0-50E4-40A3-A875-312F70D4E1FA}</td><td>MY_COMPANY_NAME</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{A7AB7CE0-50E4-40A3-A875-312F70D4E1FA}</td><td>WOLFBRAND_GAMES1</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{4B6234A3-813B-467E-97C8-9AB30A59FCF1}</td><td>LocalAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>SDL2.dll</td><td>{32F0F741-81CE-4DA7-9E19-71DC3D574247}</td><td>INSTALLDIR</td><td>2</td><td/><td>sdl2.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>SDL2_image.dll</td><td>{F8961B04-EB4C-4167-8DD4-BDD5ADE27D51}</td><td>INSTALLDIR</td><td>2</td><td/><td>sdl2_image.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>SDL2_mixer.dll</td><td>{1E8A9786-F1A9-44F3-B752-16D1BAFA2DB7}</td><td>INSTALLDIR</td><td>2</td><td/><td>sdl2_mixer.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1065,6 +1066,7 @@
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AppDataFolder</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>LocalAppDataFolder</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1155,13 +1157,12 @@
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
 		<row><td>IMAGES</td><td>INSTALLDIR</td><td>images</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>TUNNEL_RUNNER</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>TUNNEL_RUNNER1</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
-		<row><td>MY_COMPANY_NAME</td><td>AppDataFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
@@ -1179,9 +1180,12 @@
 		<row><td>SystemFolder</td><td>TARGETDIR</td><td>.:System32</td><td/><td>0</td><td/></row>
 		<row><td>TARGETDIR</td><td/><td>SourceDir</td><td/><td>0</td><td/></row>
 		<row><td>TUNNEL_RUNNER</td><td>ISMyCompanyDir</td><td>TUNNEL~1|Tunnel Runner</td><td/><td>0</td><td/></row>
+		<row><td>TUNNEL_RUNNER1</td><td>WOLFBRAND_GAMES</td><td>TUNNEL~1|Tunnel Runner</td><td/><td>0</td><td/></row>
 		<row><td>TempFolder</td><td>TARGETDIR</td><td>.:Temp</td><td/><td>0</td><td/></row>
 		<row><td>TemplateFolder</td><td>TARGETDIR</td><td>.:ShellNew</td><td/><td>0</td><td/></row>
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
+		<row><td>WOLFBRAND_GAMES</td><td>ProgramFilesFolder</td><td>WOLFBR~1|Wolfbrand Games</td><td/><td>0</td><td/></row>
+		<row><td>WOLFBRAND_GAMES1</td><td>LocalAppDataFolder</td><td>WOLFBR~1|Wolfbrand Games</td><td/><td>0</td><td/></row>
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>tunnel_1_tunnel_runner</td><td>yourco_1_your_company_name</td><td>TUNNEL~1|Tunnel Runner</td><td/><td>1</td><td/></row>
@@ -1880,6 +1884,7 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 		<row><td>AlwaysInstall</td><td>SDL2.dll</td></row>
 		<row><td>AlwaysInstall</td><td>SDL2_image.dll</td></row>
 		<row><td>AlwaysInstall</td><td>SDL2_mixer.dll</td></row>
@@ -1977,6 +1982,7 @@
 		<col def="S255">Data</col>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AlwaysInstall</td></row>
 		<row><td>PROJECT_ASSISTANT_FEATURES</td><td>NonSelectable</td></row>
+		<row><td>Tunnel_Runner.exe</td><td/></row>
 	</table>
 
 	<table name="ISBillBoard">
@@ -2106,6 +2112,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_89891838_FEC6_4B73_B976_423376CD5637_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_9669ADBB_8372_43D2_A249_30542715AC4A_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_0CE45CAB_060A_4083_8ED7_9DB42B21B69D_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_CCFAAC62_562A_4021_92C4_709B9E1A7353_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>SDL2.dll</td><td/><td/><td>_54B0774B_7C30_46A5_AFBE_A42CCBE211B0_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>SDL2_image.dll</td><td/><td/><td>_E4E3A2C7_AD4D_40E7_9ED3_085CAA2128B0_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>SDL2_mixer.dll</td><td/><td/><td>_024AB666_E8D1_4FBE_B14F_312E316BA4A3_FILTER</td><td/><td/><td/><td/></row>
@@ -2736,7 +2743,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Your Company Name</td><td>0</td><td/><td>-1180440746</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Wolfbrand Games</td><td>0</td><td/><td>-1046227243</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-1180440746</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-1180440746</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>-1180440746</td></row>
@@ -3548,7 +3555,7 @@
 		<row><td>IDS_PROGMSG_XML_UPDATE_FILE</td><td>1033</td><td>Updating XML file %s...</td><td>0</td><td/><td>-1180440746</td></row>
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>-1180440746</td></row>
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>-1180440746</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>LAUNCH~1.EXE|Launch Tunnel Runner.exe</td><td>0</td><td/><td>-1180477321</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Tunnel Runner</td><td>0</td><td/><td>-1046268139</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>-1180440746</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>-1180440746</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>-1180440746</td></row>
@@ -3839,6 +3846,9 @@
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-1180440746</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>-1180496010</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td/><td>0</td><td/><td>-1180489705</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>http://wolfbrandgames.com/</td><td>0</td><td/><td>-1046264075</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>Wolfbrand Games</td><td>0</td><td/><td>-1046227243</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>LAUNCH~1.EXE|Launch Tunnel Runner.exe</td><td>0</td><td/><td>-1046235403</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-1180440746</td></row>
 	</table>
 
@@ -3946,8 +3956,9 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
-		<row><td>Tunnel_Runner.exe_8356279144AC4F3489ECA0677BFC4DBD.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\Tunnel Runner\images\tunnelrunner.ico</td><td>0</td></row>
+		<row><td>Tunnel_Runner.exe1_402216DD347A4AD985515C65A6F87832.exe</td><td/><td>&lt;VSSolutionFolder&gt;\Tunnel Runner\images\tunnelrunner.ico</td><td>0</td></row>
+		<row><td>Tunnel_Runner.exe_231CFF24447A4E9490DBFE1CB9831AC8.exe</td><td/><td>&lt;VSSolutionFolder&gt;\Tunnel Runner\images\tunnelrunner.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4080,7 +4091,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{4902E7FA-A600-43CE-B288-B7D158174C2E}</td></row>
 		<row><td>ISUSSignature</td><td>{4A5113FA-A9B6-402D-8DE7-3C97A45D9F99}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewISToday,viewAppV,viewProject</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4388,6 +4399,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
+		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING3##</td><td/></row>
 		<row><td>AgreeToLicense</td><td>No</td><td/></row>
 		<row><td>ApplicationUsers</td><td>AllUsers</td><td/></row>
 		<row><td>DWUSINTERVAL</td><td>30</td><td/></row>
@@ -4423,7 +4435,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>IS_SQLSERVER_SERVER</td><td/><td/></row>
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
-		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
 		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
@@ -4465,6 +4476,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
+		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
@@ -4616,7 +4628,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>Tunnel_Runner.exe</td><td>tunnel_1_tunnel_runner</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Tunnel_Runner.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>Tunnel_Runner.exe_8356279144AC4F3489ECA0677BFC4DBD.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Tunnel_Runner.exe</td><td>tunnel_1_tunnel_runner</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Tunnel_Runner.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>Tunnel_Runner.exe_231CFF24447A4E9490DBFE1CB9831AC8.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Tunnel_Runner.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Tunnel_Runner.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>Tunnel_Runner.exe1_402216DD347A4AD985515C65A6F87832.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

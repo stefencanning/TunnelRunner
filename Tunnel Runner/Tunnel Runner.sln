@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tunnel Runner", "Tunnel Runner\Tunner Runner.vcxproj", "{8C52E2F7-FDE7-4CDA-BB4A-7C58BAA93B4C}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "installer", "installer\installer.isproj", "{46E3516A-373E-4408-B22B-B4D6746C0C70}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8C52E2F7-FDE7-4CDA-BB4A-7C58BAA93B4C} = {8C52E2F7-FDE7-4CDA-BB4A-7C58BAA93B4C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

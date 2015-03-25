@@ -15,10 +15,8 @@
 #include "TextureManager.h"
 #include "SoundManager.h"
 #include <chrono>
-#include <winsock2.h>
 #include <windows.h>
 #include <fstream>
-#pragma comment(lib,"ws2_32.lib")
 
 //Screen dimension constants 
 //The window we'll be rendering to 

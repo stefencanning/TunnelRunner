@@ -5,6 +5,13 @@
 #include "SoundManager.h"
 #include "TextureManager.h"
 #include <time.h>
+#include <sstream>
+#include "Shlobj.h"
+#include <shlwapi.h>
+#pragma comment(lib,"shlwapi.lib")
+#include <tchar.h>
+using namespace std;
+
 class Game
 {
 private:

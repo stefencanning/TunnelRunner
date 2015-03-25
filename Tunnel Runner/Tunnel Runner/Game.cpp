@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Shlobj.h"
 
 
 Game::Game(void)
@@ -8,37 +7,63 @@ Game::Game(void)
 	textureTime=0;
 	setScore=false;
 	SoundManager::getManager()->startMusic(SoundManager::getManager()->backgroundMusic);
-	PWSTR appdata;
-	HRESULT result = SHGetKnownFolderPath(FOLDERID_LocalAppData,0,NULL,&appdata);
-	ifstream file(*appdata+"/scores.txt");
-	ifstream file2(*appdata+"/distances.txt");
+
+	TCHAR szPath[MAX_PATH];
+	// Get path for each computer, non-user specific and non-roaming data.
+	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_LOCAL_APPDATA, NULL, 0, szPath ) ) )
+	{
+		// Append product-specific path
+		PathAppend( szPath, _T("\\Wolfbrand Games\\scores.txt") );
+	}
+	TCHAR szPath2[MAX_PATH];
+	// Get path for each computer, non-user specific and non-roaming data.
+	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_LOCAL_APPDATA, NULL, 0, szPath2 ) ) )
+	{
+		// Append product-specific path
+		PathAppend( szPath2, _T("\\Wolfbrand Games\\distances.txt") );
+	}
+	ifstream file3(szPath);
+	ifstream file4(szPath2);
 	string line;
-	//Crew::nameOptions[150];
-	if(file.is_open())
+	if(file3.is_open())
 	{
 		for(int i=0; i <10; i++)
 		{
-			getline(file,line);
+			getline(file3,line);
 			scores[i].first = line.substr(0,line.find(',')).c_str();
 			scores[i].second = atoi(line.substr(line.find(',')+1).c_str());
-			getline(file2,line);
+			getline(file4,line);
 			distances[i].first = line.substr(0,line.find(',')).c_str();
 			distances[i].second = atoi(line.substr(line.find(',')+1).c_str());
 		}
 	}
-	file.close();
-	file2.close();
-	CoTaskMemFree(appdata);
+	file3.close();
+	file4.close();
+
 }
 
 
 Game::~Game(void)
 {
 	delete curText;
-	PWSTR appdata;
-	HRESULT result = SHGetKnownFolderPath(FOLDERID_LocalAppData,0,NULL,&appdata);
-	ofstream file(*appdata+"/scores.txt");
-	ofstream file2(*appdata+"/distances.txt");
+
+	TCHAR szPath[MAX_PATH];
+	// Get path for each computer, non-user specific and non-roaming data.
+	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_LOCAL_APPDATA, NULL, 0, szPath ) ) )
+	{
+		// Append product-specific path
+		PathAppend( szPath, _T("\\Wolfbrand Games\\scores.txt") );
+	}
+	TCHAR szPath2[MAX_PATH];
+	// Get path for each computer, non-user specific and non-roaming data.
+	if ( SUCCEEDED( SHGetFolderPath( NULL, CSIDL_LOCAL_APPDATA, NULL, 0, szPath2 ) ) )
+	{
+		// Append product-specific path
+		PathAppend( szPath2, _T("\\Wolfbrand Games\\distances.txt") );
+	}
+
+	ofstream file(szPath);
+	ofstream file2(szPath2);
 	if(file.is_open())
 	{
 		for(int i=0; i <10; i++)
@@ -49,7 +74,6 @@ Game::~Game(void)
 	}
 	file.close();
 	file2.close();
-	CoTaskMemFree(appdata);
 }
 
 void Game::update(float timeElapsed)
