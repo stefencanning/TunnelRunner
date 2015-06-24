@@ -10,6 +10,9 @@ class ObjectManager
 {
 private:
 	static ObjectManager* me;
+	/// Checks if a new row is needed to be spawned, and then spawns it if true
+	void spawnTerrain();
+
 public:
 	const short none;
 	const short mud;
@@ -20,29 +23,20 @@ public:
 	const short gold;
 	const short water;
 	const short size;
+	bool flip;
 	int waterHeal;
-	ObjectManager(void);
-	~ObjectManager(void);
-	void init();
-	void update(float timeElapsed);
-	void draw(SDL_Renderer* renderer);
-	static ObjectManager* getManager();
-	Vector2f playerPos;
-	float accel;
 	int score;
-	float health;
+	int playerTex;
+	int texNum;
 	int lineDel;
+	float accel;
+	float health;
 	float spawnChance;
 	float timeTillMove;
 	float timeTillMoveCounter;
-	float textureChange;
-	vector<vector<short>> map;
-	void LavaUpdate(float timeElapsed);
-	void setUp();
-	int playerTex;
-	int texNum;
-	bool flip;
-	void spawnTerrain();
+	float textureChange;	
+	Vector2f playerPos;
+	vector<vector<short>> map;	
 	enum dirs
 	{
 		down=0,
@@ -52,7 +46,24 @@ public:
 		upSide=8,
 		falling=10,
 		floating=12
-	};
+	};	
+
+	/// Initialises the object manager variables as default and spawns the first set of blocks
+	ObjectManager(void);
+	/// Deconstructor
+	~ObjectManager(void);
+	/// Restarts the map for a new run
+	void setUp();
+	/// Updates the player and calls update methods
+	void update(float timeElapsed);
+	/// Draws all entities to the screen
+	void draw(SDL_Renderer* renderer);
+	/// Gets a single instance of the ObjectManager
+	static ObjectManager* getManager();
+	/// Updates the lava flow to spread the lava
+	void LavaUpdate(float timeElapsed);
+	
+	
 };
 #endif
 

@@ -4,6 +4,7 @@
 #include "SDL_ttf.h"
 #include "Texture.h"
 #include <vector>
+#include "Constants.h"
 using namespace std;
 class TextureManager
 {

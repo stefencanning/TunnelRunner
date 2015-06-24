@@ -1,15 +1,31 @@
-﻿Build started 24/03/2015 23:12:53.
-     1>Project "C:\Users\stefen2\Documents\GitHub\TunnelRunner\Tunnel Runner\Tunnel Runner\Tunner Runner.vcxproj" on node 2 (Build target(s)).
+﻿Build started 24-06-15 4:45:40 PM.
+     1>Project "C:\Users\Morro\Documents\TunnelRunner\Tunnel Runner\Tunnel Runner\Tunner Runner.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
-         Game.cpp
-     1>c:\users\stefen2\documents\github\tunnelrunner\tunnel runner\tunnel runner\game.cpp(34): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\stefen2\documents\github\tunnelrunner\tunnel runner\tunnel runner\game.cpp(37): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\stefen2\documents\github\tunnelrunner\tunnel runner\tunnel runner\game.cpp(137): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\stefen2\documents\github\tunnelrunner\tunnel runner\tunnel runner\game.cpp(138): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\stefen2\documents\github\tunnelrunner\tunnel runner\tunnel runner\game.cpp(335): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt ObjectManager.cpp
+         ObjectManager.cpp
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\constants.h(9): warning C4091: 'static ' : ignored on left of 'Constants' when no variable is declared
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(47): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(51): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(156): warning C4244: '=' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(168): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(215): warning C4244: '=' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(224): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(264): warning C4244: '=' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(302): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(325): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(340): warning C4244: '=' : conversion from 'const int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(355): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(361): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(385): warning C4018: '>' : signed/unsigned mismatch
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(452): warning C4244: '=' : conversion from 'const double' to 'float', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(455): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(457): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(577): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(578): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(613): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\morro\documents\tunnelrunner\tunnel runner\tunnel runner\objectmanager.cpp(614): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\stefen2\Documents\GitHub\TunnelRunner\Tunnel Runner\Debug\Tunnel Runner.exe" /INCREMENTAL /NOLOGO SDL2_ttf.lib SDL2_mixer.lib SDL2.lib SDL2main.lib SDL2_image.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\stefen2\Documents\GitHub\TunnelRunner\Tunnel Runner\Debug\Tunnel Runner.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\stefen2\Documents\GitHub\TunnelRunner\Tunnel Runner\Debug\Tunnel Runner.lib" /MACHINE:X86 Debug\Game.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Morro\Documents\TunnelRunner\Tunnel Runner\Debug\Tunnel Runner.exe" /INCREMENTAL /NOLOGO SDL2_ttf.lib SDL2_mixer.lib SDL2.lib SDL2main.lib SDL2_image.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Morro\Documents\TunnelRunner\Tunnel Runner\Debug\Tunnel Runner.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Morro\Documents\TunnelRunner\Tunnel Runner\Debug\Tunnel Runner.lib" /MACHINE:X86 Debug\Game.obj
          Debug\KeyManager.obj
          Debug\main.obj
          Debug\ObjectManager.obj
@@ -19,10 +35,9 @@
          Debug\TextureManager.obj
          Debug\Vector2f.obj
          Debug\Vector3f.obj
-     1>MSVCRTD.lib(cinitexe.obj) : warning LNK4098: defaultlib 'msvcrt.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
-         Tunner Runner.vcxproj -> C:\Users\stefen2\Documents\GitHub\TunnelRunner\Tunnel Runner\Debug\Tunnel Runner.exe
-     1>Done Building Project "C:\Users\stefen2\Documents\GitHub\TunnelRunner\Tunnel Runner\Tunnel Runner\Tunner Runner.vcxproj" (Build target(s)).
+         Tunner Runner.vcxproj -> C:\Users\Morro\Documents\TunnelRunner\Tunnel Runner\Debug\Tunnel Runner.exe
+     1>Done Building Project "C:\Users\Morro\Documents\TunnelRunner\Tunnel Runner\Tunnel Runner\Tunner Runner.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:05.32
+Time Elapsed 00:00:02.11
