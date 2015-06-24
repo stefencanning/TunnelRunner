@@ -527,7 +527,7 @@ void ObjectManager::draw(SDL_Renderer* renderer)
 	int w = 0;
 	int h = 0;
 	
-	TextureManager::getManager()->drawText(renderer,"Score: "+std::to_string(score),20,20,TextureManager::positioning::left);
+	TextureManager::getManager()->drawText(renderer,"Gold: "+std::to_string(score),20,20,TextureManager::positioning::left);
 	/*
 	std::string scoreStr="Score: ";
 	scoreStr+=std::to_string(score);

@@ -141,7 +141,7 @@ void Game::draw(SDL_Renderer* renderer)
 		SDL_RenderCopyEx(renderer,TextureManager::getManager()->scoreScreen->getTexture(),nullptr,&pos,0,nullptr,SDL_RendererFlip::SDL_FLIP_NONE);
 
 
-		TextureManager::getManager()->drawText(renderer,"Score",640-(960/2)+(450/2), 360-(540/2)+60-(48),TextureManager::positioning::center);
+		TextureManager::getManager()->drawText(renderer,"Gold",640-(960/2)+(450/2), 360-(540/2)+60-(48),TextureManager::positioning::center);
 		/*
 		SDL_Color fontColor;
 		fontColor.r = 253;
