@@ -88,6 +88,7 @@
     <ClCompile Include="Vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="ObjectManager.h" />

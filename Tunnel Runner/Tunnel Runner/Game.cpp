@@ -4,8 +4,8 @@
 Game::Game(void)
 {
 	textureNum = 0;
-	textureTime=0;
-	setScore=false;
+	textureTime = 0;
+	setScore = false;
 	SoundManager::getManager()->startMusic(SoundManager::getManager()->backgroundMusic);
 
 	TCHAR szPath[MAX_PATH];
@@ -66,10 +66,10 @@ Game::~Game(void)
 	ofstream file2(szPath2);
 	if(file.is_open())
 	{
-		for(int i=0; i <10; i++)
+		for(int i = 0; i < 10; i++)
 		{
-			file<<scores[i].first<<','<<scores[i].second<<'\n';
-			file2<<distances[i].first<<','<<distances[i].second<<'\n';
+			file << scores[i].first << ',' << scores[i].second << '\n';
+			file2 << distances[i].first << ',' << distances[i].second << '\n';
 		}
 	}
 	file.close();
@@ -78,7 +78,7 @@ Game::~Game(void)
 
 void Game::update(float timeElapsed)
 {
-	if(ObjectManager::getManager()->health>0)
+	if(ObjectManager::getManager()->health > 0)
 	{
 		ObjectManager::getManager()->update(timeElapsed);
 	}
@@ -86,41 +86,41 @@ void Game::update(float timeElapsed)
 	{
 		if(!setScore)
 		{
-			name="";
-			distPos=-1;
-			scorePos=-1;
-			setScore=true;
+			name = "";
+			distPos =- 1;
+			scorePos =- 1;
+			setScore = true;
 			updateScore();
 		}
-		for(int i =4; i <30;i++)
+		for(int i = 4; i < 30; i++)
 		{
 			if(KeyManager::getManager()->keyPressed((SDL_Scancode)i))
 			{
-				if(name.size()<12)
+				if(name.size() < 12)
 				{
-					name+=(char)(i+93);
+					name += (char)(i + 93);
 				}
 			}
 		}
 		if(KeyManager::getManager()->keyPressed(SDL_SCANCODE_BACKSPACE))
 		{
-			if(name.size()>0)
+			if(name.size() > 0)
 			{
-				name.erase(name.end()-1);
+				name.erase(name.end() - 1);
 			}
 		}
-		if(scorePos!=-1)
+		if(scorePos != -1)
 		{
-			scores[scorePos].first=name;
+			scores[scorePos].first = name;
 		}
-		if(distPos!=-1)
+		if(distPos != -1)
 		{
-			distances[distPos].first=name;
+			distances[distPos].first = name;
 		}
 		if(KeyManager::getManager()->keyPressed(SDL_SCANCODE_RETURN))
 		{
 			ObjectManager::getManager()->setUp();
-			setScore=false;
+			setScore = false;
 			SoundManager::getManager()->startMusic(SoundManager::getManager()->backgroundMusic);
 		}
 	}
@@ -134,187 +134,31 @@ void Game::draw(SDL_Renderer* renderer)
 	if(ObjectManager::getManager()->health<=0)
 	{	
 		SDL_Rect pos;
-		pos.w=TextureManager::getManager()->scoreScreen->getSize().x;
-		pos.h=TextureManager::getManager()->scoreScreen->getSize().y;
-		pos.x = 640-(pos.w/2);
-		pos.y = 360-(pos.h/2);
-		SDL_RenderCopyEx(renderer,TextureManager::getManager()->scoreScreen->getTexture(),nullptr,&pos,0,nullptr,SDL_RendererFlip::SDL_FLIP_NONE);
+		pos.w = TextureManager::getManager()->scoreScreen->getSize().x;
+		pos.h = TextureManager::getManager()->scoreScreen->getSize().y;
+		pos.x = 640 - (pos.w / 2);
+		pos.y = 360 - (pos.h / 2);
+		SDL_RenderCopyEx(renderer, TextureManager::getManager()->scoreScreen->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
 
-
-		TextureManager::getManager()->drawText(renderer,"Gold",640-(960/2)+(450/2), 360-(540/2)+60-(48),TextureManager::positioning::center);
-		/*
-		SDL_Color fontColor;
-		fontColor.r = 253;
-		fontColor.g = 217;
-		fontColor.b = 0;
-		fontColor.a = 255;
-		int w = 0;
-		int h = 0;
-		std::string scoreStr ="score";
-		SDL_Surface* message = TTF_RenderText_Solid(TextureManager::getManager()->font,scoreStr.c_str(), fontColor);
-		SDL_Texture* text = SDL_CreateTextureFromSurface(renderer, message);
-		SDL_QueryTexture(text, nullptr, nullptr, &w, &h);
-		int width = message->w;
-		int height = message->h;
-		
-		pos.x = 640-(960/2)+(450/2);
-		pos.y = 360-(540/2)+80-(48);
-		pos.w = message->w;
-		pos.h = message->h;
-		pos.x -= message->w/2;
-		pos.y -= message->h/2;
-		//SDL_RenderCopyEx(renderer, text, nullptr, &pos, 0, nullptr, SDL_FLIP_NONE);
-		SDL_FreeSurface(message);
-		SDL_DestroyTexture(text);
-		//*/
-		
-		TextureManager::getManager()->drawText(renderer,"Distance",640+(960/2)-(450/2), 360-(540/2)+60-(48),TextureManager::positioning::center);
-
-		/*
-		std::string distStr ="distance";
-		message = TTF_RenderText_Solid(TextureManager::getManager()->font,distStr.c_str(), fontColor);
-		text = SDL_CreateTextureFromSurface(renderer, message);
-		SDL_QueryTexture(text, nullptr, nullptr, &w, &h);
-		width = message->w;
-		height = message->h;
-
-		pos.x = 640+(960/2)-(450/2);
-		pos.y = 360-(540/2)+80-(48);
-		pos.w = message->w;
-		pos.h = message->h;
-		pos.x -= message->w/2;
-		pos.y -= message->h/2;
-		SDL_RenderCopyEx(renderer, text, nullptr, &pos, 0, nullptr, SDL_FLIP_NONE);
-		SDL_FreeSurface(message);
-		SDL_DestroyTexture(text);
-		//*/
+		TextureManager::getManager()->drawText(renderer, "Gold", 640 - (960 / 2) + (450 / 2), 360 - (540 / 2) + 60 - (48),TextureManager::positioning::center);		
+		TextureManager::getManager()->drawText(renderer,"Distance",640 + (960 / 2) - (450 / 2), 360 - (540 / 2) + 60 - (48),TextureManager::positioning::center);
 
 		for(int i = 0; i < 10; i++)
 		{
 			int w = 0;
 			int h = 0;
-			/*
-			if(i!=scorePos)
+			if(scores[i].first != "")
 			{
-				fontColor.r = 253;
-				fontColor.g = 217;
-				fontColor.b = 0;
-				fontColor.a = 255;
+				TextureManager::getManager()->drawText(renderer, scores[i].first, 640 - (960 / 2) + (450 / 2) - (450 / 4), 360 - (540 / 2) + 60 + (i * 48), TextureManager::positioning::center);
 			}
-			else
-			{
-				fontColor.r = 255;
-				fontColor.g = 255;
-				fontColor.b = 255;
-				fontColor.a = 255;
-			}
-			*/
-			if(scores[i].first!="")
-			{
-				TextureManager::getManager()->drawText(renderer,scores[i].first,640-(960/2)+(450/2)-(450/4), 360-(540/2)+60+(i*48),TextureManager::positioning::center);
-				/*
-				scoreStr=scores[i].first;
-				SDL_Surface* message = TTF_RenderText_Solid(TextureManager::getManager()->font,scoreStr.c_str(), fontColor);
-				SDL_Texture* text = SDL_CreateTextureFromSurface(renderer, message);
-				SDL_QueryTexture(text, nullptr, nullptr, &w, &h);
-				int width = message->w;
-				int height = message->h;
-
-				pos.x = 640-(960/2)+(450/2)-(450/4);
-				pos.y = 360-(540/2)+80+(i*48);
-				pos.w = message->w;
-				pos.h = message->h;
-				pos.x -= message->w/2;
-				pos.y -= message->h/2;
-				SDL_RenderCopyEx(renderer, text, nullptr, &pos, 0, nullptr, SDL_FLIP_NONE);
-				SDL_FreeSurface(message);
-				SDL_DestroyTexture(text);
-				//*/
-			}
-
-
-
-
 			
-			TextureManager::getManager()->drawText(renderer,std::to_string((int)scores[i].second), 640-(960/2)+(450/2)+(450/4),360-(540/2)+60+(i*48),TextureManager::positioning::center);
-			/*
-			scoreStr =std::to_string((int)scores[i].second);
-			message = TTF_RenderText_Solid(TextureManager::getManager()->font,scoreStr.c_str(), fontColor);
-			text = SDL_CreateTextureFromSurface(renderer, message);
-			SDL_QueryTexture(text, nullptr, nullptr, &w, &h);
-			width = message->w;
-			height = message->h;
-
-			pos.x = 640-(960/2)+(450/2)+(450/4);
-			pos.y = 360-(540/2)+80+(i*48);
-			pos.w = message->w;
-			pos.h = message->h;
-			pos.x -= message->w/2;
-			pos.y -= message->h/2;
-			SDL_RenderCopyEx(renderer, text, nullptr, &pos, 0, nullptr, SDL_FLIP_NONE);
-			SDL_FreeSurface(message);
-			SDL_DestroyTexture(text);
-			//*/
-			/*
-			if(i!=distPos)
-			{
-				fontColor.r = 253;
-				fontColor.g = 217;
-				fontColor.b = 0;
-				fontColor.a = 255;
-			}
-			else
-			{
-				fontColor.r = 255;
-				fontColor.g = 255;
-				fontColor.b = 255;
-				fontColor.a = 255;
-			}
-			//*/
-			if(distances[i].first!="")
-			{
-				TextureManager::getManager()->drawText(renderer,distances[i].first, 640+(960/2)-(450/2)-(450/4),360-(540/2)+60+(i*48),TextureManager::positioning::center);
-				/*
-				scoreStr =distances[i].first;
-				message = TTF_RenderText_Solid(TextureManager::getManager()->font,scoreStr.c_str(), fontColor);
-				text = SDL_CreateTextureFromSurface(renderer, message);
-				SDL_QueryTexture(text, nullptr, nullptr, &w, &h);
-				width = message->w;
-				height = message->h;
+			TextureManager::getManager()->drawText(renderer,std::to_string((int)scores[i].second), 640 - (960 / 2) + (450 / 2) + (450 / 4), 360 - (540 / 2) + 60 + (i * 48),TextureManager::positioning::center);
 			
-				pos.x = 640+(960/2)-(450/2)-(450/4);
-				pos.y = 360-(540/2)+80+(i*48);
-				pos.w = message->w;
-				pos.h = message->h;
-				pos.x -= message->w/2;
-				pos.y -= message->h/2;
-				SDL_RenderCopyEx(renderer, text, nullptr, &pos, 0, nullptr, SDL_FLIP_NONE);
-				SDL_FreeSurface(message);
-				SDL_DestroyTexture(text);
-				//*/
-			}
-
-
-			
-			TextureManager::getManager()->drawText(renderer,std::to_string((int)distances[i].second), 640+(960/2)-(450/2)+(450/4),360-(540/2)+60+(i*48),TextureManager::positioning::center);
-			/*
-			distStr =std::to_string((int)distances[i].second);
-			message = TTF_RenderText_Solid(TextureManager::getManager()->font,distStr.c_str(), fontColor);
-			text = SDL_CreateTextureFromSurface(renderer, message);
-			SDL_QueryTexture(text, nullptr, nullptr, &w, &h);
-			width = message->w;
-			height = message->h;
-			
-			pos.x = 640+(960/2)-(450/2)+(450/4);
-			pos.y = 360-(540/2)+80+(i*48);
-			pos.w = message->w;
-			pos.h = message->h;
-			pos.x -= message->w/2;
-			pos.y -= message->h/2;
-			SDL_RenderCopyEx(renderer, text, nullptr, &pos, 0, nullptr, SDL_FLIP_NONE);
-			SDL_FreeSurface(message);
-			SDL_DestroyTexture(text);
-			//*/
+			if(distances[i].first != "")
+			{
+				TextureManager::getManager()->drawText(renderer, distances[i].first, 640 + (960 / 2) - (450 / 2) - (450 / 4), 360 - (540 / 2) + 60 + (i * 48), TextureManager::positioning::center);
+			}			
+			TextureManager::getManager()->drawText(renderer, std::to_string((int)distances[i].second), 640 + (960 / 2) - (450 / 2) - (450 / 4), 360 - (540 / 2) + 60 + (i * 48), TextureManager::positioning::center);
 		}
 	}
 	SDL_RenderPresent(renderer);
@@ -326,13 +170,13 @@ void Game::updateScore()
 	{
 		if(scores[i].second < ObjectManager::getManager()->score)
 		{
-			scorePos=i;
+			scorePos = i;
 			for(int k = 9; k > i; k--)
 			{
-				scores[k].second = scores[k-1].second;
-				scores[k].first = scores[k-1].first;
+				scores[k].second = scores[k - 1].second;
+				scores[k].first = scores[k - 1].first;
 			}
-			scores[i].second= ObjectManager::getManager()->score;
+			scores[i].second = ObjectManager::getManager()->score;
 			break;
 		}
 	}
@@ -340,13 +184,13 @@ void Game::updateScore()
 	{
 		if(distances[i].second < ObjectManager::getManager()->playerPos.y)
 		{
-			distPos=i;
+			distPos = i;
 			for(int k = 9; k >= i; k--)
 			{
 				distances[k].second = distances[k-1].second;
 				distances[k].first = distances[k-1].first;
 			}
-			distances[i].second= ObjectManager::getManager()->playerPos.y;
+			distances[i].second = ObjectManager::getManager()->playerPos.y;
 			break;
 		}
 	}
