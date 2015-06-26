@@ -6,6 +6,8 @@
 #include <string.h>
 #include "SDL.h"
 #include "Vector2f.h"
+
+
 using namespace std;
 class KeyManager
 {

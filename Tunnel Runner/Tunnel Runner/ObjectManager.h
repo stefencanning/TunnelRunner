@@ -3,15 +3,20 @@
 #define OBJECTMANAGER_H
 #include <vector>
 #include <time.h>
+#include "Player.h"
 #include "TextureManager.h"
 #include "KeyManager.h"
+#include "Player.h"
+
 using namespace std;
+
 class ObjectManager
 {
 private:
 	static ObjectManager* me;
 	/// Checks if a new row is needed to be spawned, and then spawns it if true
 	void spawnTerrain();
+	Player m_playerOne;
 
 public:
 	const short none;

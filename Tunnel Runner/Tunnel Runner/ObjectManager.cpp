@@ -13,8 +13,8 @@ ObjectManager* ObjectManager::getManager()
 
 
 ObjectManager::ObjectManager(void):none(0),mud(1),magma(2),size(16),lava(3),flow(4),bedrock(5),gold(6),water(7),waterHeal(5),
-									playerPos(Vector2f(640, 0)), accel(0), score(0), health(100), spawnChance(600), lineDel(0),
-									textureChange(0.0f), playerTex(0), texNum(0), flip(false), timeTillMove(0), timeTillMoveCounter(2),
+									m_playerOne(Vector2f(Constants::SCREEN_WIDTH / 2, 0)), accel(0), score(0), health(100), spawnChance(600), lineDel(0),
+									textureChange(0.0f), playerTex(0), texNum(0), timeTillMove(0), timeTillMoveCounter(2),
 									map(vector<vector<short>>())
 {	
 
@@ -29,7 +29,7 @@ ObjectManager::ObjectManager(void):none(0),mud(1),magma(2),size(16),lava(3),flow
 void ObjectManager::spawnTerrain()
 {
 	/// Check if a line is needed to be spawned at the current time
-	if(playerPos.y + 400 > (map.size() + lineDel) * size)
+	if(m_playerOne.getPosition().y  + 400 > (map.size() + lineDel) * size)
 	{
 		/// Temporary vector storing blocks on the line
 		vector<short> line = vector<short>();
@@ -99,32 +99,27 @@ ObjectManager::~ObjectManager(void)
 void ObjectManager::update(float timeElapsed)
 {
 	/// Increases the players y value based on acceleration. 
-	playerPos.y += min(max(accel * timeElapsed, -10.0f), 10.0f);
-
+	//m_playerOne.getPosition().y  += min(max(accel * timeElapsed, -10.0f), 10.0f);
+	m_playerOne.Update(accel, timeElapsed);
 	/// A boolean which tracks if the player has struck a body which is not liquid
 	bool struck = false;
 
 	/// If the player presses A or the Left Arrow Key
 	if(KeyManager::getManager()->keyDown(SDL_SCANCODE_A) || KeyManager::getManager()->keyDown(SDL_SCANCODE_LEFT))
 	{
-		/// Orientate the player to face left
-		flip = true;
-
-		/// Move the player space to the left, by a minimum of 15, keeping them on screen 
-		playerPos.x = max(0.0f, playerPos.x - min(120 * timeElapsed / max(timeTillMoveCounter, 0.5f), 15.0f));
+		/// Move the player to the left
+		m_playerOne.MoveLeft(timeElapsed, timeTillMoveCounter);
 
 		/// Check every position in a 2 block radius around the player
-		for(int i = max(0, (int)((playerPos.y - 32) / size) - lineDel); i < min((int)map.size(), (int)((playerPos.y + 64) / size) - lineDel); i++)
+		for(int i = max(0, (int)((m_playerOne.getPosition().y  - 32) / size) - lineDel); i < min((int)map.size(), (int)((m_playerOne.getPosition().y  + 64) / size) - lineDel); i++)
 		{
-			for(int k = max(0, (int)((playerPos.x - 32) / size)); k < min((int)map.at(i).size(), (int)((playerPos.x + 64) / size)); k++)
+			for(int k = max(0, (int)((m_playerOne.getPosition().x - 32) / size)); k < min((int)map.at(i).size(), (int)((m_playerOne.getPosition().x + 64) / size)); k++)
 			{
 				/// If the current square is mud
 				if(map.at(i).at(k) == mud)
 				{
 					/// Check if the block is within the player bounds
-					if(playerPos.x + 32 > k * size && playerPos.x < (k + 1) * size 
-					&& playerPos.y + 32 - (size / 4) > (i + lineDel) * size 
-					&& playerPos.y + (size / 4) < ((i + 1) + lineDel) * size)
+					if(m_playerOne.CheckBlock(mud, lineDel, 0, k, i))
 					{
 						/// Destroy the block
 						map.at(i).at(k) = none;
@@ -134,40 +129,27 @@ void ObjectManager::update(float timeElapsed)
 				else if(map.at(i).at(k) == gold)
 				{ 
 					/// Check if the block is within the player bounds
-					if(playerPos.x + 32 > k * size && playerPos.x < (k + 1) * size 
-					&& playerPos.y + 32 - (size / 4) > (i + lineDel) * size 
-					&& playerPos.y + (size / 4) < ((i + 1) + lineDel) * size)
+					if(m_playerOne.CheckBlock(gold, lineDel, 0, k, i))
 					{
 						/// Destroy the block and increase score
-						map.at(i).at(k) = none;
-						score += 10;
+						map.at(i).at(k) = none;						
 					}
 				}
 				/// If the current square is water
 				else if(map.at(i).at(k) == water)
 				{
 					/// Check if the block is within the player bounds
-					if(playerPos.x + 32 > k * size && playerPos.x < (k + 1) * size 
-					&& playerPos.y + 32 - (size / 4) > (i + lineDel) * size 
-					&& playerPos.y + (size / 4) < ((i + 1) + lineDel) * size)
+					if(m_playerOne.CheckBlock(water, lineDel, 0, k, i))
 					{
 						/// Destroy the block and heal the player
 						map.at(i).at(k) = none;
-						health = min(100, (int)health + waterHeal);
 					}
 				}
 				/// If the current square is bedrock
 				else if(map.at(i).at(k) == bedrock)
 				{
 					/// Check if the block is within the player bounds
-					if(playerPos.x + 32 > k * size && playerPos.x < (k + 1) * size 
-					&& playerPos.y + 32 - (size / 4) > (i + lineDel) * size 
-					&& playerPos.y + (size / 4) < ((i + 1) + lineDel) * size)
-					{
-						/// Stop the player and move them back to the previous square
-						playerPos.x = (k + 1) * size;
-						struck = true;
-					}
+					m_playerOne.CheckBlock(bedrock, lineDel, 0, k, i);
 				}
 			}
 		}
@@ -175,55 +157,37 @@ void ObjectManager::update(float timeElapsed)
 	/// If the player presses D or Right Arrow key, move the player to the right
 	if(KeyManager::getManager()->keyDown(SDL_SCANCODE_D) || KeyManager::getManager()->keyDown(SDL_SCANCODE_RIGHT))
 	{
-		/// Orientate the player to face to the right
-		flip = false;
-
-		/// Move the player space to the right, by a minimum of 15, keeping them on screen 
-		playerPos.x = min(Constants::SCREEN_WIDTH - 32.0f, playerPos.x + min(120 * timeElapsed / max(timeTillMoveCounter, 0.5f), 15.0f));
+		m_playerOne.MoveRight(timeElapsed, timeTillMoveCounter);
 
 		/// Check every position in a 2 block radius around the player and interact with the blocks accordingly
-		for(int i = max(0, (int)((playerPos.y - 32) / size) - lineDel); i < min((int)map.size(),(int)((playerPos.y + 64) / size) - lineDel); i++)
+		for(int i = max(0, (int)((m_playerOne.getPosition().y  - 32) / size) - lineDel); i < min((int)map.size(),(int)((m_playerOne.getPosition().y  + 64) / size) - lineDel); i++)
 		{
-			for(int k = max(0, (int)((playerPos.x - 32) / size)); k < min((int)map.at(i).size(), (int)((playerPos.x + 64) / size)); k++)
+			for(int k = max(0, (int)((m_playerOne.getPosition().x - 32) / size)); k < min((int)map.at(i).size(), (int)((m_playerOne.getPosition().x + 64) / size)); k++)
 			{
 				if(map.at(i).at(k) == mud)
 				{
-					if(playerPos.x + 32 > k * size && playerPos.x < (k + 1) * size 
-					&& playerPos.y + 32 - (size / 4) > (i + lineDel) * size 
-					&&playerPos.y + (size / 4) < ((i + 1) + lineDel) * size)
+					if(m_playerOne.CheckBlock(mud, 0, lineDel, k, i))
 					{
-						map.at(i).at(k)=none;
+						map.at(i).at(k) = none;
 					}
 				}
 				else if(map.at(i).at(k) == gold)
 				{
-					if(playerPos.x + 32 > (k * size) && playerPos.x < (k + 1) * size
-					&& playerPos.y + 32 - (size / 4) > (i + lineDel) * size 
-					&& playerPos.y + (size / 4) < ((i + 1) + lineDel) * size)
+					if(m_playerOne.CheckBlock(gold, 0, lineDel, k, i))
 					{
 						map.at(i).at(k) = none;
-						score += 10;
 					}
 				}
 				else if(map.at(i).at(k) == water)
 				{
-					if(playerPos.x + 32 > (k * size) && playerPos.x < (k + 1) * size
-					&& playerPos.y + 32 - (size / 4) > (i + lineDel) * size 
-					&& playerPos.y + (size / 4) < ((i + 1) + lineDel) * size)
+					if(m_playerOne.CheckBlock(water, 0, lineDel, k, i))
 					{
 						map.at(i).at(k) = none;
-						health = min(100, (int)health + waterHeal);
 					}
 				}
 				else if(map.at(i).at(k) == bedrock)
 				{
-					if(playerPos.x + 32 > (k * size) && playerPos.x < (k + 1) * size
-					&& playerPos.y + 32 - (size / 4) > (i + lineDel) * size 
-					&& playerPos.y + (size / 4) < ((i + 1) + lineDel) * size)
-					{
-						playerPos.x = (k * size) - 32;
-						struck = true;
-					}
+					m_playerOne.CheckBlock(bedrock, 0, lineDel, k, i);
 				}
 			}
 		}
@@ -231,44 +195,36 @@ void ObjectManager::update(float timeElapsed)
 	/// If the player presses the S or Down Arrow keys, destroy blocks beneath the player
 	if(KeyManager::getManager()->keyDown(SDL_SCANCODE_S)||KeyManager::getManager()->keyDown(SDL_SCANCODE_DOWN))
 	{
-		for(int i = max(0, (int)((playerPos.y + 32) / size) - lineDel); i < min((int)map.size(), (int)((playerPos.y + 64) / size) - lineDel); i++)
+		for(int i = max(0, (int)((m_playerOne.getPosition().y  + 32) / size) - lineDel); i < min((int)map.size(), (int)((m_playerOne.getPosition().y  + 64) / size) - lineDel); i++)
 		{
-			for(int k = max(0, (int)((playerPos.x - 32) / size)); k < min((int)map.at(i).size(), (int)((playerPos.x + 64) / size)); k++)
+			for(int k = max(0, (int)((m_playerOne.getPosition().x - 32) / size)); k < min((int)map.at(i).size(), (int)((m_playerOne.getPosition().x + 64) / size)); k++)
 			{
 				if(map.at(i).at(k) == mud)
 				{
-					if(playerPos.x + 32 > k * size && playerPos.x < (k + 1) * size
-					&& playerPos.y + 32 + (size / 2) > (i + lineDel) * size
-					&& playerPos.y < ((i + 1) + lineDel) * size)
+					if(m_playerOne.CheckBlock(mud, 1, lineDel, k, i))
 					{
 						map.at(i).at(k) = none;
 					}
 				}
 				if(map.at(i).at(k) == gold)
 				{
-					if(playerPos.x + 32 > k * size && playerPos.x < (k + 1) * size
-					&& playerPos.y + 32 + (size / 2) > (i + lineDel) * size
-					&& playerPos.y < ((i + 1) + lineDel) * size)
+					if(m_playerOne.CheckBlock(gold, 1, lineDel, k, i))
 					{
 						map.at(i).at(k) = none;
-						score += 10;
 					}
 				}
 				if(map.at(i).at(k) == water)
 				{
-					if(playerPos.x + 32 > k * size && playerPos.x < (k + 1) * size
-					&& playerPos.y + 32 + (size / 2) > (i + lineDel) * size
-					&& playerPos.y < ((i + 1) + lineDel) * size)
+					if(m_playerOne.CheckBlock(water, 1, lineDel, k, i))
 					{
 						map.at(i).at(k) = none;
-						health = min(100, (int)health + waterHeal);
 					}
 				}
 			}
 		}
-	}
+	}	
 	/// If the player presses the W or Up Arrow keys
-	if(KeyManager::getManager()->keyPressed(SDL_SCANCODE_W) || KeyManager::getManager()->keyDown(SDL_SCANCODE_UP))
+	if(KeyManager::getManager()->keyDown(SDL_SCANCODE_W) || KeyManager::getManager()->keyDown(SDL_SCANCODE_UP))
 	{
 		/// If the player is on the ground and not moving
 		if(accel == 0)
@@ -278,20 +234,18 @@ void ObjectManager::update(float timeElapsed)
 		}
 	}
 	/// Check every block in a 2 block radius around the player
-	for(int i = max(0, (int)((playerPos.y - 32) / size) - lineDel); i < min((int)map.size(), (int)((playerPos.y + 64) / size) - lineDel); i++)
+	for(int i = max(0, (int)((m_playerOne.getPosition().y  - 32) / size) - lineDel); i < min((int)map.size(), (int)((m_playerOne.getPosition().y  + 64) / size) - lineDel); i++)
 	{
-		for(int k = max(0, (int)((playerPos.x - 32) / size)); k < min((int)map.at(i).size(), (int)((playerPos.x + 64) / size)); k++)
+		for(int k = max(0, (int)((m_playerOne.getPosition().x - 32) / size)); k < min((int)map.at(i).size(), (int)((m_playerOne.getPosition().x + 64) / size)); k++)
 		{
 			/// If the block is mud 
 			if(map.at(i).at(k) == mud)
 			{
 				/// If the player has collided with the block
-				if(playerPos.x + 32 > (k * size) && playerPos.x < (k + 1) * size
-				&& playerPos.y + 32 > (i + lineDel) * size 
-				&& playerPos.y < ((i + 1) + lineDel) * size)
+				if(m_playerOne.CheckBlock(mud, 2, lineDel, k, i))
 				{
 					/// If the block is on top of the player
-					if(playerPos.y + (size / 2) > ((i + lineDel) * size))
+					if(m_playerOne.getPosition().y  + (size / 2) > ((i + lineDel) * size))
 					{
 						/// Delete the block
 						map.at(i).at(k) = none;
@@ -299,7 +253,7 @@ void ObjectManager::update(float timeElapsed)
 					else
 					{
 						/// Stop the player and move them on top of the block
-						playerPos.y = (i + lineDel) * size - 32;
+						m_playerOne.Land(i, lineDel);
 						struck = true;
 					}
 				}
@@ -308,21 +262,18 @@ void ObjectManager::update(float timeElapsed)
 			else if(map.at(i).at(k) == gold)
 			{
 				/// If the player has collided with the block
-				if(playerPos.x + 32 > (k * size) && playerPos.x < (k + 1) * size 
-				&& playerPos.y + 32 > (i + lineDel) * size 
-				&& playerPos.y < ((i + 1) + lineDel) * size)
+				if(m_playerOne.CheckBlock(gold, 2, lineDel, k, i))
 				{
 					/// If the block is on top of the player
-					if(playerPos.y + (size / 2) > ((i + lineDel) * size))
+					if(m_playerOne.getPosition().y + (size / 2) > ((i + lineDel) * size))
 					{
 						/// Delete the block and update the score by 10
 						map.at(i).at(k) = none;
-						score += 10;
 					}
 					else
 					{
 						/// Stop the player and move them on top of the block
-						playerPos.y = (i + lineDel) * size - 32;
+						m_playerOne.Land(i, lineDel);
 						struck = true;
 					}
 				}
@@ -331,34 +282,28 @@ void ObjectManager::update(float timeElapsed)
 			else if(map.at(i).at(k) == water)
 			{
 				/// If the player has collided with the block
-				if(playerPos.x + 32 > (k *size) && playerPos.x < (k + 1) * size
-				&&playerPos.y + 32 > (i + lineDel) * size
-				&&playerPos.y < ((i + 1) + lineDel) * size)
+				if(m_playerOne.CheckBlock(water, 2, lineDel, k, i))
 				{
 					/// Remove the water and increase health
 					map.at(i).at(k) = none;
-					health = min(100, (int)health + waterHeal);
 				}
 			}
 			/// If the block is bedrock
 			else if(map.at(i).at(k) == bedrock)
 			{
 				/// If the player has collided with the block
-				if(playerPos.x + 32 > (k *size) && playerPos.x < (k + 1) * size 
-				&& playerPos.y + 32 > (i + lineDel) * size 
-				&& playerPos.y < ((i + 1) + lineDel) * size)
+				if(m_playerOne.CheckBlock(bedrock, 2, lineDel, k, i))
 				{
 					/// If it is above the player
-					if(playerPos.y + (size / 2) > ((i + lineDel) * size))
+					if(m_playerOne.getPosition().y  + (size / 2) > ((i + lineDel) * size))
 					{
 						/// Stop the player and position him under the block
-						playerPos.y = ((i + 1) + lineDel) * size;
 						struck = true;
 					}
 					else
 					{
 						/// Stop the player and position him over the block
-						playerPos.y = (i + lineDel) * size - 32;
+						m_playerOne.Land(i, lineDel);
 						struck = true;
 					}
 				}
@@ -367,16 +312,14 @@ void ObjectManager::update(float timeElapsed)
 			else if(map.at(i).at(k) == lava)
 			{
 				/// If the player has collided with the block
-				if(playerPos.x + 32 > (k * size) && playerPos.x < (k + 1) * size 
-				&& playerPos.y + 32 > (i + lineDel) * size
-				&& playerPos.y < ((i + 1) + lineDel) * size)
+				if(m_playerOne.CheckBlock(lava, 2, lineDel, k, i))
 				{
 					/// Decrease player health
 					health -= 10 * timeElapsed;
 				}
 			}
 		}
-	}	
+	}		
 
 	/// Attempt to spawn another row of terrain
 	spawnTerrain();
@@ -431,9 +374,13 @@ void ObjectManager::update(float timeElapsed)
 		{
 			texNum = down;
 		}
-		if(texNum == floating)
+		else if(texNum == floating)
 		{
 			texNum = downSide;
+		}
+		else if(texNum == upSide)
+		{
+			texNum = side;
 		}
 	}
 }
@@ -449,7 +396,7 @@ void ObjectManager::LavaUpdate(float timeElapsed)
 		/// Reset the movement timer to the current max movement timer
 		timeTillMove = timeTillMoveCounter;
 		/// Update the movement timer to be faster
-		timeTillMoveCounter = max(timeTillMoveCounter-0.25,0.1);
+		timeTillMoveCounter = max(timeTillMoveCounter - 0.25, 0.1);
 
 		/// Check every square in the map
 		for(int i = 0; i < map.size(); i++)
@@ -602,9 +549,9 @@ void ObjectManager::draw(SDL_Renderer* renderer)
 	pos.w = size;
 	pos.h = size;
 
-	for(int i = max(0, (int)((playerPos.y - 400) / size) - lineDel); i < min((int)map.size(), (int)((playerPos.y + 400) / size) - lineDel); i++)
+	for(int i = max(0, (int)((m_playerOne.getPosition().y  - 400) / size) - lineDel); i < min((int)map.size(), (int)((m_playerOne.getPosition().y  + 400) / size) - lineDel); i++)
 	{
-		pos.y = ((i + lineDel) * size) - playerPos.y + 360;
+		pos.y = ((i + lineDel) * size) - m_playerOne.getPosition().y  + 360;
 		for(int k = 0; k < map.at(i).size(); k++)
 		{
 			if(map.at(i).at(k) == mud)
@@ -640,15 +587,15 @@ void ObjectManager::draw(SDL_Renderer* renderer)
 		}
 	}
 
-	pos.x = playerPos.x;
-	pos.y = playerPos.y-playerPos.y+360;
+	pos.x = m_playerOne.getPosition().x;
+	pos.y = m_playerOne.getPosition().y -m_playerOne.getPosition().y +360;
 	pos.w = 32;
 	pos.h = 32;
 	SDL_RenderCopyEx(renderer, TextureManager::getManager()->miners->at(texNum + playerTex)->getTexture(), nullptr, &pos, 0, nullptr, (SDL_RendererFlip)(int)flip);		
 	
-	TextureManager::getManager()->drawText(renderer, "Score: " + std::to_string(score), 20, 20, TextureManager::positioning::left);
-	TextureManager::getManager()->drawText(renderer, "Health: " + std::to_string((int)max(health, 0.0f)), Constants::SCREEN_WIDTH - 20, 20, TextureManager::positioning::right);	
-	TextureManager::getManager()->drawText(renderer, "Distance: " + std::to_string((int)playerPos.y), Constants::SCREEN_WIDTH / 2 , 20, TextureManager::positioning::center);
+	TextureManager::getManager()->drawText(renderer, "Score: " + std::to_string(m_playerOne.getScore()), 20, 20, TextureManager::positioning::left);
+	TextureManager::getManager()->drawText(renderer, "Health: " + std::to_string((int)max(m_playerOne.getHealth(), 0.0f)), Constants::SCREEN_WIDTH - 20, 20, TextureManager::positioning::right);	
+	TextureManager::getManager()->drawText(renderer, "Distance: " + std::to_string((int)m_playerOne.getPosition().y ), Constants::SCREEN_WIDTH / 2 , 20, TextureManager::positioning::center);
 }
 
 
