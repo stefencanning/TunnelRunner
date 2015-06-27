@@ -87,8 +87,8 @@ void Game::update(float timeElapsed)
 		if(!setScore)
 		{
 			name = "";
-			distPos =- 1;
-			scorePos =- 1;
+			distPos = -1;
+			scorePos = -1;
 			setScore = true;
 			updateScore();
 		}
@@ -158,7 +158,7 @@ void Game::draw(SDL_Renderer* renderer)
 			{
 				TextureManager::getManager()->drawText(renderer, distances[i].first, 640 + (960 / 2) - (450 / 2) - (450 / 4), 360 - (540 / 2) + 60 + (i * 48), TextureManager::positioning::center);
 			}			
-			TextureManager::getManager()->drawText(renderer, std::to_string((int)distances[i].second), 640 + (960 / 2) - (450 / 2) - (450 / 4), 360 - (540 / 2) + 60 + (i * 48), TextureManager::positioning::center);
+			TextureManager::getManager()->drawText(renderer, std::to_string((int)distances[i].second), 640 + (960 / 2) - (450 / 2) + (450 / 4), 360 - (540 / 2) + 60 + (i * 48), TextureManager::positioning::center);
 		}
 	}
 	SDL_RenderPresent(renderer);
