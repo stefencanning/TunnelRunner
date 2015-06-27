@@ -95,7 +95,7 @@ bool Player::CheckBounds(int lineDel, int dir, int xIndex, int yIndex)
 	{
 		if(m_position.x + Constants::PLAYER_SIZE > (xIndex * Constants::BLOCK_SIZE) 
 		&& m_position.x < (xIndex + 1) * Constants::BLOCK_SIZE 
-		&& m_position.y + Constants::PLAYER_SIZE > (yIndex + lineDel) * Constants::BLOCK_SIZE  
+		&& m_position.y + Constants::PLAYER_SIZE+1 > (yIndex + lineDel) * Constants::BLOCK_SIZE  
 		&& m_position.y < ((yIndex + 1) + lineDel) * Constants::BLOCK_SIZE)
 		{
 			return true;

@@ -1,0 +1,10 @@
+MineMan,10000
+stefen,9000
+sean,7500
+mordekaiser,7168
+graves,6000
+overlord,5000
+wolf,3000
+digdude,2000
+canary,1500
+teemo,1000

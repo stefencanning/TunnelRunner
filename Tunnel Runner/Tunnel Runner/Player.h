@@ -16,6 +16,12 @@ public:
 	Vector2f getPosition();
 	int getScore();
 	float getHealth();
+	void setPosition(Vector2f pos){m_position = pos;};
+	void setScore(int score){m_score = score;};
+	void setHealth(float health){m_health = health;};
+	void updatePosition(Vector2f pos){m_position += pos;};
+	void updateScore(int score){m_score += score;};
+	void updateHealth(float health){m_health += health;};
 
 	/// Update the player position
 	void Update(float accel, float t);
@@ -33,6 +39,7 @@ public:
 
 	/// Method to draw player to screen
 	void Draw();
+	bool getFlip(){return m_flip;};
 
 private:
 	bool m_flip;

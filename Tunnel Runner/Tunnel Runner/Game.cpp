@@ -78,7 +78,7 @@ Game::~Game(void)
 
 void Game::update(float timeElapsed)
 {
-	if(ObjectManager::getManager()->health > 0)
+	if(ObjectManager::getManager()->getPlayer()->getHealth() > 0)
 	{
 		ObjectManager::getManager()->update(timeElapsed);
 	}
@@ -131,7 +131,7 @@ void Game::draw(SDL_Renderer* renderer)
 {
 	SDL_RenderClear(renderer);
 	ObjectManager::getManager()->draw( renderer);
-	if(ObjectManager::getManager()->health<=0)
+	if(ObjectManager::getManager()->getPlayer()->getHealth()<=0)
 	{	
 		SDL_Rect pos;
 		pos.w = TextureManager::getManager()->scoreScreen->getSize().x;
@@ -168,7 +168,7 @@ void Game::updateScore()
 {
 	for(int i = 0; i < 10; i++)
 	{
-		if(scores[i].second < ObjectManager::getManager()->score)
+		if(scores[i].second < ObjectManager::getManager()->getPlayer()->getScore())
 		{
 			scorePos = i;
 			for(int k = 9; k > i; k--)
@@ -176,13 +176,13 @@ void Game::updateScore()
 				scores[k].second = scores[k - 1].second;
 				scores[k].first = scores[k - 1].first;
 			}
-			scores[i].second = ObjectManager::getManager()->score;
+			scores[i].second = ObjectManager::getManager()->getPlayer()->getScore();
 			break;
 		}
 	}
 	for(int i = 0; i < 10; i++)
 	{
-		if(distances[i].second < ObjectManager::getManager()->playerPos.y)
+		if(distances[i].second < ObjectManager::getManager()->getPlayer()->getPosition().y)
 		{
 			distPos = i;
 			for(int k = 9; k >= i; k--)
@@ -190,7 +190,7 @@ void Game::updateScore()
 				distances[k].second = distances[k-1].second;
 				distances[k].first = distances[k-1].first;
 			}
-			distances[i].second = ObjectManager::getManager()->playerPos.y;
+			distances[i].second = ObjectManager::getManager()->getPlayer()->getPosition().y;
 			break;
 		}
 	}

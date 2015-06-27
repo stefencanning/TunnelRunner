@@ -16,7 +16,7 @@ private:
 	static ObjectManager* me;
 	/// Checks if a new row is needed to be spawned, and then spawns it if true
 	void spawnTerrain();
-	Player m_playerOne;
+	Player* m_playerOne;
 
 public:
 	const short none;
@@ -28,19 +28,14 @@ public:
 	const short gold;
 	const short water;
 	const short size;
-	bool flip;
-	int waterHeal;
-	int score;
 	int playerTex;
 	int texNum;
 	int lineDel;
 	float accel;
-	float health;
 	float spawnChance;
 	float timeTillMove;
 	float timeTillMoveCounter;
 	float textureChange;	
-	Vector2f playerPos;
 	vector<vector<short>> map;	
 	enum dirs
 	{
@@ -68,7 +63,7 @@ public:
 	/// Updates the lava flow to spread the lava
 	void LavaUpdate(float timeElapsed);
 	
-	
+	Player* getPlayer(){return m_playerOne;};
 };
 #endif
 
