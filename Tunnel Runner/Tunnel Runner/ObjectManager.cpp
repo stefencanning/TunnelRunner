@@ -548,6 +548,14 @@ void ObjectManager::draw(SDL_Renderer* renderer)
 	SDL_Rect pos;
 	pos.w = size;
 	pos.h = size;
+	TextureManager* manager = TextureManager::getManager();
+	Texture* wallT=manager->wall;
+	Texture* magmaT=manager->magma;
+	Texture* lavaT=manager->lava;
+	Texture* goldT=manager->gold;
+	Texture* waterT=manager->water;
+	Texture* bedrockT=manager->bedrock;
+
 
 	for(int i = max(0, (int)((m_playerOne->getPosition().y  - 400) / size) - lineDel); i < min((int)map.size(), (int)((m_playerOne->getPosition().y  + 400) / size) - lineDel); i++)
 	{
@@ -557,32 +565,45 @@ void ObjectManager::draw(SDL_Renderer* renderer)
 			if(map.at(i).at(k) == mud)
 			{
 				pos.x = (k * size);
-				SDL_RenderCopyEx(renderer, TextureManager::getManager()->wall->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				//SDL_RenderCopyEx(renderer,  nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				//SDL_RenderCopy(renderer,wallT->getTexture(),nullptr,&pos);
+				SDL_SetRenderDrawColor(renderer,127,51,0,255);
+				SDL_RenderFillRect(renderer,&pos);
 			}
 			else if(map.at(i).at(k) == magma)
 			{
 				pos.x = (k*size);
-				SDL_RenderCopyEx(renderer, TextureManager::getManager()->magma->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				//SDL_RenderCopyEx(renderer, magmaT->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				SDL_SetRenderDrawColor(renderer,255,96,43,255);
+				SDL_RenderFillRect(renderer,&pos);
 			}
 			else if(map.at(i).at(k) == lava)
 			{
 				pos.x = (k * size);
-				SDL_RenderCopyEx(renderer, TextureManager::getManager()->lava->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				//SDL_RenderCopyEx(renderer, lavaT->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				SDL_SetRenderDrawColor(renderer,255,0,4,255);
+				SDL_RenderFillRect(renderer,&pos);
 			}
 			else if(map.at(i).at(k) == gold)
 			{
 				pos.x = (k * size);
-				SDL_RenderCopyEx(renderer, TextureManager::getManager()->gold->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				//SDL_RenderCopyEx(renderer, goldT->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				SDL_SetRenderDrawColor(renderer,255,182,0,255);
+				SDL_RenderFillRect(renderer,&pos);
 			}
 			else if(map.at(i).at(k) == water)
 			{
 				pos.x = (k * size);
-				SDL_RenderCopyEx(renderer, TextureManager::getManager()->water->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				//SDL_RenderCopyEx(renderer, waterT->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				SDL_SetRenderDrawColor(renderer,0,114,196,255);
+				SDL_RenderFillRect(renderer,&pos);
 			}
 			else if(map.at(i).at(k) == bedrock)
 			{
 				pos.x = (k * size);
-				SDL_RenderCopyEx(renderer, TextureManager::getManager()->bedrock->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				//SDL_RenderCopyEx(renderer, bedrockT->getTexture(), nullptr, &pos, 0, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
+				SDL_SetRenderDrawColor(renderer,0,0,0,255);
+				SDL_RenderFillRect(renderer,&pos);
 			}
 		}
 	}

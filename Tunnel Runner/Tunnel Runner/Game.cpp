@@ -129,6 +129,7 @@ void Game::update(float timeElapsed)
 
 void Game::draw(SDL_Renderer* renderer)
 {
+	SDL_SetRenderDrawColor(renderer,255,255,255,255);
 	SDL_RenderClear(renderer);
 	ObjectManager::getManager()->draw( renderer);
 	if(ObjectManager::getManager()->getPlayer()->getHealth()<=0)

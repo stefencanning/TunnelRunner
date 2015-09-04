@@ -4,3 +4,7 @@ Tunnel Runner/Tunnel Runner.sdf
 *.obj
 *.log
 *.sdf
+*.vspx
+*.obj
+Tunnel Runner/Tunnel Runner/Debug/ObjectManager.obj
+Tunnel Runner/Debug/Tunnel Runner.ilk
